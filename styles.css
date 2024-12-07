@@ -1,0 +1,1149 @@
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #808080;
+    --background-color: #000000;
+    --glass-bg: #ffffff08;
+    --glass-border: #ffffff1a;
+    --glass-shine: #ffffff0d;
+    --text-color: #ffffff;
+    --neon-glow: 0 0 10px #ffffff4d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.animated-bg {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: float-orb 20s infinite;
+    opacity: 0.5;
+}
+
+.orb:nth-child(1) {
+    background: #ffffff1a;
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+    opacity: 0.3;
+}
+
+.orb:nth-child(2) {
+    background: #8080801a;
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -5s;
+    opacity: 0.3;
+}
+
+.orb:nth-child(3) {
+    background: #4040401a;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -10s;
+    opacity: 0.2;
+}
+
+@keyframes float-orb {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(0, -10px); }
+}
+
+.glass-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, #ffffff1a, transparent 40%),
+        radial-gradient(circle at 80% 80%, #ffffff1a, transparent 40%),
+        radial-gradient(circle at 50% 50%, #ffffff0d, transparent 60%);
+    opacity: 0.3;
+    z-index: -1;
+    filter: blur(80px);
+}
+
+.container {
+    max-width: 1080px;
+    margin: 2rem auto;
+    padding: 0.9rem;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 1.35rem;
+}
+
+.container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+.glass {
+    background: #00000099;
+    border: 1px solid #ffffff1a;
+    box-shadow: 0 0 20px #00000080;
+    backdrop-filter: blur(10px);
+    border-radius: 22px;
+    padding: 1.35rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    will-change: transform;
+    backdrop-filter: blur(5px);
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        #ffffff0d,
+        transparent
+    );
+    transform: skewX(-15deg);
+    transition: 0.5s;
+}
+
+.glass:hover::before {
+    left: 150%;
+    transition: 0.5s;
+}
+
+.profile-section {
+    text-align: center;
+    position: sticky;
+    top: 2rem;
+    background: #000000d9;
+    border: 1px solid #ffffff26;
+}
+
+.profile-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(45deg, #ffffff, #404040);
+    mask: linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                 linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+}
+
+.profile-image img {
+    width: 162px;
+    height: 162px;
+    border: 2px solid var(--primary-color);
+    border-radius: 22px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: cover;
+}
+
+.profile-image img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+h1, h2, h3 {
+    font-size: 2.52rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.9rem;
+    color: var(--primary-color);
+    text-shadow: var(--neon-glow);
+}
+
+.bio, .trade-note, .contact-note {
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    margin: 0.9rem 0;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    padding: 1.08rem;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    background: #000000cc;
+    border: 1px solid #ffffff26;
+    box-shadow: 0 0 20px #ffffff1a;
+    border-radius: 16px;
+    height: 72px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.social-btn:hover {
+    background: #ffffff1a;
+    border: 1px solid #ffffff33;
+    box-shadow: 0 0 30px #ffffff33;
+    transform: translateY(-2px);
+}
+
+.social-btn i {
+    font-size: 1.35rem;
+    margin-right: 1rem;
+    width: 27px;
+    transition: transform 0.3s ease;
+    color: var(--primary-color);
+}
+
+.social-btn:hover i {
+    transform: rotate(-10deg) scale(1.1);
+}
+
+.text-content {
+    text-align: left;
+}
+
+.text-content span {
+    display: block;
+    font-weight: 600;
+}
+
+.text-content small {
+    opacity: 0.8;
+}
+
+.contact-section, .donation-section {
+    text-align: center;
+    background: #000000cc;
+}
+
+.contact-btn, .donation-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    margin: 0.8rem 0;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+}
+
+.contact-btn:hover, .donation-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.donation-note {
+    color: var(--secondary-color);
+    margin-top: 1rem;
+}
+
+.steam-note {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+.x-twitter {
+    background: rgba(255, 255, 255, 0.05) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.x-twitter:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.x-logo {
+    width: 28px;
+    height: 28px;
+    margin-right: 1rem;
+}
+
+.x-logo svg {
+    width: 100%;
+    height: 100%;
+    color: var(--text-color);
+}
+
+.profile-image {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.profile-image::after {
+    display: none;
+}
+
+/* Desktop Optimization */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.profile-section {
+    position: sticky;
+    top: 2rem;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.social-btn {
+    height: 80px;
+}
+
+/* Simplified Contact & Support */
+.contact-section h2,
+.donation-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.contact-btn {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: block;
+    text-align: center;
+}
+
+/* Mobile Optimization */
+@media (max-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    .profile-section {
+        position: relative;
+        top: 0;
+    }
+
+    .social-links {
+        grid-template-columns: 1fr;
+    }
+
+    .social-btn {
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .profile-image img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .glass {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-btn,
+    .donation-btn {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Update the glass effect for better mobile performance */
+@supports (backdrop-filter: blur(20px)) {
+    .glass {
+        background: rgba(139, 92, 246, 0.05);
+        backdrop-filter: blur(20px);
+    }
+}
+
+@supports not (backdrop-filter: blur(20px)) {
+    .glass {
+        background: rgba(139, 92, 246, 0.15);
+    }
+}
+
+/* Optimize background effects for mobile */
+@media (max-width: 768px) {
+    /* Reset all blur and glass effects */
+    .glass-bg, .orb {
+        display: none;
+    }
+
+    .glass {
+        background: #000000cc;
+        border: 1px solid #ffffff26;
+        box-shadow: 0 4px 12px #00000033;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    /* Remove all animations */
+    .profile-section,
+    .profile-image::after,
+    .glass::before {
+        animation: none;
+    }
+
+    /* Simplify layout */
+    .container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    /* Make text crisp */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Improve button clarity */
+    .social-btn,
+    .contact-btn,
+    .donation-btn {
+        background: #ffffff26;
+        border: 1px solid #ffffff4d;
+        box-shadow: none;
+    }
+
+    /* Remove hover effects on mobile */
+    .social-btn:hover,
+    .contact-btn:hover,
+    .donation-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Ensure text is sharp */
+    h1, h2, p, span, small, a {
+        text-shadow: none;
+        transform: none !important;
+        -webkit-transform: none !important;
+    }
+
+    .profile-section {
+        position: relative;
+        top: 0;
+    }
+
+    .profile-section::after {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further simplify for smaller screens */
+    .container {
+        padding: 0.8rem;
+    }
+
+    .glass {
+        padding: 1.2rem;
+        margin-bottom: 0.8rem;
+        border-radius: 16px;
+    }
+
+    /* Adjust text sizes */
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .text-content span {
+        font-size: 1rem;
+    }
+
+    .text-content small {
+        font-size: 0.85rem;
+    }
+
+    /* Simplify buttons */
+    .social-btn {
+        height: auto;
+        padding: 1rem;
+    }
+
+    .contact-btn,
+    .donation-btn {
+        padding: 0.8rem;
+    }
+
+    /* Remove all transforms and effects */
+    * {
+        transform: none !important;
+        -webkit-transform: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}
+
+/* Add styles for new elements */
+.affiliations {
+    margin-top: 1.5rem;
+}
+
+.affiliations span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.affiliations a {
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.affiliations a:hover {
+    color: var(--primary-color);
+}
+
+.trade-info {
+    text-align: center;
+    background: #000000cc;
+}
+
+.trade-info ul {
+    list-style: none;
+    margin: 1.5rem 0;
+}
+
+.trade-info li {
+    margin: 1.2rem 0;
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding: 0.8rem 0;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trade-info li:hover {
+    transform: translateX(5px);
+}
+
+.trade-info i {
+    color: var(--primary-color);
+    margin-right: 1.2rem;
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px rgba(255, 46, 151, 0.5);
+}
+
+.trade-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.2rem 2.8rem;
+    background: linear-gradient(45deg, #ffffff, #404040);
+    color: #000000;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.trade-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(45deg, #ffffff, #606060);
+}
+
+.contact-note, .trade-note {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 1.2rem 0;
+}
+
+/* Update existing styles to match new theme */
+.location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    color: var(--secondary-color);
+}
+
+/* Add Twitch button styles */
+.social-btn.twitch {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.social-btn.twitch:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.social-btn.twitch i {
+    color: white;
+}
+
+/* Adjust social links grid for 3 buttons */
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+/* Add VHS scanline effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.3;
+}
+
+/* Add retro grid background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Add CRT screen effect */
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.1) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.15;
+}
+
+/* Add text glow effects */
+h1 {
+    text-shadow: var(--neon-glow);
+    animation: textPulse 2s infinite;
+}
+
+.profile-image::after {
+    box-shadow: var(--neon-glow);
+}
+
+/* Enhance social buttons */
+.social-btn {
+    border: 1px solid var(--primary-color);
+    box-shadow: inset 0 0 10px rgba(255, 46, 151, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.social-btn:hover {
+    box-shadow: 0 0 20px rgba(255, 46, 151, 0.4);
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+/* Add retro animations */
+@keyframes textPulse {
+    0% { text-shadow: var(--neon-glow); }
+    50% { text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color); }
+    100% { text-shadow: var(--neon-glow); }
+}
+
+@keyframes glitch {
+    0% { transform: translate(0) skew(0deg); }
+    20% { transform: translate(-2px, 2px) skew(2deg); }
+    40% { transform: translate(-2px, -2px) skew(-2deg); }
+    60% { transform: translate(2px, 2px) skew(-2deg); }
+    80% { transform: translate(2px, -2px) skew(2deg); }
+    100% { transform: translate(0) skew(0deg); }
+}
+
+/* Add glitch effect to profile image */
+.profile-image img {
+    position: relative;
+}
+
+.profile-image img::before,
+.profile-image img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(YOUR_IMAGE_URL) no-repeat center/cover;
+    opacity: 0.5;
+}
+
+.profile-image img::before {
+    animation: glitch 2s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-5px);
+}
+
+.profile-image img::after {
+    animation: glitch 2s infinite reverse;
+    clip-path: polygon(0 45%, 100% 45%, 100% 100%, 0 100%);
+    transform: translate(5px);
+}
+
+/* Add scanlines */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        #00000033,
+        #00000033 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.08;
+    background-size: 100% 3px;
+}
+
+/* Update trade button */
+.trade-btn {
+    background: linear-gradient(45deg, #ffffff, #404040);
+    border: none;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.trade-btn:hover {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Add smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Update trade button icon */
+.trade-btn i {
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.trade-btn:hover i {
+    transform: translateX(3px);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Add Discord button style */
+.social-btn.discord {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.social-btn.discord:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.social-btn.discord i {
+    color: var(--primary-color);
+}
+
+/* Update trade info styles */
+.trade-info h2 {
+    color: var(--primary-color);
+    font-size: 2.4rem;
+}
+
+.trade-info li i.fa-percentage {
+    font-size: 1.3rem;
+    margin-top: 2px;
+}
+
+/* Update profile section */
+.profile-section .bio {
+    font-size: 1.3rem;
+    margin: 1.2rem 0;
+}
+
+.affiliations span {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+/* Add floating bats animation */
+@keyframes flyBat {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10px, -10px) rotate(5deg); }
+    50% { transform: translate(0, -20px) rotate(0deg); }
+    75% { transform: translate(-10px, -10px) rotate(-5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Add bat decorations */
+.bat {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 1l9 7h-6l3 4H6l3-4H3z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 0;
+    opacity: 0.1;
+    filter: brightness(1);
+    animation: flyBat 4s infinite ease-in-out;
+}
+
+.bat:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; }
+.bat:nth-child(2) { top: 15%; right: 10%; animation-delay: -1s; transform: scale(0.8); }
+.bat:nth-child(3) { top: 25%; left: 50%; animation-delay: -2s; transform: scale(1.2); }
+.bat:nth-child(4) { top: 40%; right: 25%; animation-delay: -3s; transform: scale(0.7); }
+
+/* Add dark mist effect */
+.mist {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, 
+        #ffffff0d,
+        transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    animation: mistFloat 20s infinite alternate;
+}
+
+@keyframes mistFloat {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-10px, -10px); }
+}
+
+/* Add Steam stats styling */
+.steam-stats {
+    text-align: center;
+    margin-top: 1rem;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.steam-stats h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-shadow: var(--neon-glow);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.stat-item {
+    padding: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-3px);
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-shadow: var(--neon-glow);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Add fog effect */
+.fog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, 
+        #ffffff0d,
+        transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    animation: fogFloat 20s infinite alternate;
+}
+
+@keyframes fogFloat {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-10px, -10px); }
+}
+
+/* Update text styles */
+h1, h2, h3 {
+    color: var(--primary-color);
+    text-shadow: var(--neon-glow);
+}
+
+.bio, .trade-note, .contact-note {
+    color: var(--secondary-color);
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .profile-section {
+        position: relative;
+        top: 0;
+    }
+
+    .bat {
+        display: none;
+    }
+}
+
+/* Update X (formerly Twitter) button styles */
+.social-btn.x {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.social-btn.x:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.x-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 1rem;
+    fill: var(--primary-color);
+}
+
+/* Update contact and social button styles for consistency */
+.social-btn, .contact-btn, .donation-btn, .trade-btn {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover, .contact-btn:hover, .donation-btn:hover, .trade-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Remove any remaining colored glows */
+.trade-info i {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Update trade button to match monochrome theme */
+.trade-btn {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--primary-color);
+    text-shadow: none;
+}
+
+.trade-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+}
+
+/* Ensure consistent text colors */
+.contact-note, .trade-note {
+    color: var(--secondary-color);
+}
+
+/* Remove any remaining colored shadows */
+.profile-section::after {
+    box-shadow: none;
+}
+
+.showcase-note {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--secondary-color);
+    margin: 0.8rem 0;
+    text-align: left;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.showcase-note:last-child {
+    border-bottom: none;
+}
+
+.contact-section {
+    text-align: left;
+}
+
+.contact-section h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.contact-note {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Add CS:GO rep button style */
+.social-btn.csgo-rep {
+    background: #000000cc;
+    border: 1px solid #ffffff26;
+}
+
+.social-btn.csgo-rep:hover {
+    background: #ffffff1a;
+}
+
+.csgo-rep-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 1rem;
+    fill: var(--primary-color);
+}
+ 
