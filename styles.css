@@ -1,714 +1,126 @@
-:root {
-    --primary-color: #ffffff;
-    --secondary-color: #808080;
-    --background-color: #000000;
-    --glass-bg: #ffffff08;
-    --glass-border: #ffffff1a;
-    --glass-shine: #ffffff0d;
-    --text-color: #ffffff;
-    --neon-glow: 0 0 10px #ffffff4d;
+/* Fix viewport and scaling */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
+/* Desktop zoom effect - preserve all other styles */
+@media screen and (min-width: 1024px) {
+    html, body {
+        overflow: hidden; /* Only hide overflow on desktop */
+    }
+    
+    body {
+        transform: scale(0.67);
+        transform-origin: top left;
+        width: 149.25373134328358%;
+        height: 149.25373134328358%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow-x: hidden;
+    }
+
+    .page-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .container {
+        margin: 2rem auto;
+    }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 1023px) {
+    html, body {
+        overflow-x: hidden; /* Prevent horizontal scroll */
+        overflow-y: auto; /* Allow vertical scroll */
+        height: auto; /* Allow content to determine height */
+    }
+
+    .container {
+        padding: var(--spacing-md);
+    }
+}
+
+/* Update container styles */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 1.5rem;
+    position: relative;
+}
+
+:root {
+    /* Colors */
+    --primary-color: #ffffff;
+    --secondary-color: #a0a0a0;
+    --tertiary-color: #505050;
+    --background-color: #0a0a0a;
+    
+    /* Container colors */
+    --container-bg: rgba(15, 15, 15, 0.95);
+    --container-border: rgba(255, 255, 255, 0.1);
+    --container-hover: rgba(255, 255, 255, 0.05);
+    
+    /* Effects */
+    --glow-effect: rgba(255, 255, 255, 0.1);
+    --shadow-effect: rgba(0, 0, 0, 0.3);
+    --text-glow: 0 0 10px rgba(255, 255, 255, 0.2);
+    
+    /* Gradients */
+    --gradient-start: rgba(30, 30, 30, 0.95);
+    --gradient-end: rgba(10, 10, 10, 0.98);
+    
+    /* Remove colored effects */
+    --dark-fire: #202020;
+    --dark-fire-glow: #303030;
+    --dark-fire-accent: #101010;
+    --blue-fire: #404040;
+    --blue-fire-glow: #505050;
+    --skull-glow: rgba(255, 255, 255, 0.2);
+    --dark-ember: rgba(255, 255, 255, 0.1);
+    --ember-glow: rgba(255, 255, 255, 0.15);
+    
+    /* Dimensions */
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    
+    /* Effects */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-}
-
-.animated-bg {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: -2;
-    overflow: hidden;
-}
-
-.orb {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: float-orb 20s infinite;
-    opacity: 0.5;
-}
-
-.orb:nth-child(1) {
-    background: #ffffff1a;
-    top: -100px;
-    left: -100px;
-    animation-delay: 0s;
-    opacity: 0.3;
-}
-
-.orb:nth-child(2) {
-    background: #8080801a;
-    bottom: -100px;
-    right: -100px;
-    animation-delay: -5s;
-    opacity: 0.3;
-}
-
-.orb:nth-child(3) {
-    background: #4040401a;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: -10s;
-    opacity: 0.2;
-}
-
-@keyframes float-orb {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(0, -10px); }
-}
-
-.glass-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 20%, #ffffff1a, transparent 40%),
-        radial-gradient(circle at 80% 80%, #ffffff1a, transparent 40%),
-        radial-gradient(circle at 50% 50%, #ffffff0d, transparent 60%);
-    opacity: 0.3;
-    z-index: -1;
-    filter: blur(80px);
-}
-
-.container {
-    max-width: 1080px;
-    margin: 2rem auto;
-    padding: 0.9rem;
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 1.35rem;
-}
-
-.container::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, 
-        transparent 0%, 
-        rgba(0, 0, 0, 0.5) 100%
-    );
-    pointer-events: none;
-    z-index: -1;
-}
-
-.glass {
-    background: #00000099;
-    border: 1px solid #ffffff1a;
-    box-shadow: 0 0 20px #00000080;
-    backdrop-filter: blur(10px);
-    border-radius: 22px;
-    padding: 1.35rem;
-    margin-bottom: 1.8rem;
-    position: relative;
-    overflow: hidden;
-    transform: translateZ(0);
-    will-change: transform;
-    backdrop-filter: blur(5px);
-}
-
-.glass::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -50%;
-    width: 100%;
-    height: 100%;
     background: linear-gradient(
-        to right,
-        transparent,
-        #ffffff0d,
-        transparent
+        rgba(10, 10, 10, 0.9),
+        rgba(5, 5, 5, 0.95)
     );
-    transform: skewX(-15deg);
-    transition: 0.5s;
-}
-
-.glass:hover::before {
-    left: 150%;
-    transition: 0.5s;
-}
-
-.profile-section {
-    text-align: center;
-    position: sticky;
-    top: 2rem;
-    background: #000000d9;
-    border: 1px solid #ffffff26;
-}
-
-.profile-section::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    padding: 2px;
-    background: linear-gradient(45deg, #ffffff, #404040);
-    mask: linear-gradient(#fff 0 0) content-box, 
-          linear-gradient(#fff 0 0);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, 
-                 linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: destination-out;
-}
-
-.profile-image img {
-    width: 162px;
-    height: 162px;
-    border: 2px solid var(--primary-color);
-    border-radius: 22px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    object-fit: cover;
-}
-
-.profile-image img:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-}
-
-h1, h2, h3 {
-    font-size: 2.52rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 0.9rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--primary-color);
-    text-shadow: var(--neon-glow);
-}
-
-.bio, .trade-note, .contact-note {
-    font-size: 1.08rem;
-    font-weight: 500;
-    color: var(--secondary-color);
-    margin: 0.9rem 0;
-}
-
-.social-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.social-btn {
-    display: flex;
-    align-items: center;
-    padding: 1.08rem;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: all 0.3s ease;
-    background: #000000cc;
-    border: 1px solid #ffffff26;
-    box-shadow: 0 0 20px #ffffff1a;
-    border-radius: 16px;
-    height: 72px;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.social-btn:hover {
-    background: #ffffff1a;
-    border: 1px solid #ffffff33;
-    box-shadow: 0 0 30px #ffffff33;
-    transform: translateY(-2px);
-}
-
-.social-btn i {
-    font-size: 1.35rem;
-    margin-right: 1rem;
-    width: 27px;
-    transition: transform 0.3s ease;
-    color: var(--primary-color);
-}
-
-.social-btn:hover i {
-    transform: rotate(-10deg) scale(1.1);
-}
-
-.text-content {
-    text-align: left;
-}
-
-.text-content span {
-    display: block;
-    font-weight: 600;
-}
-
-.text-content small {
-    opacity: 0.8;
-}
-
-.contact-section, .donation-section {
-    text-align: center;
-    background: #000000cc;
-}
-
-.contact-btn, .donation-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.2rem;
-    margin: 0.8rem 0;
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-}
-
-.contact-btn:hover, .donation-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-}
-
-.donation-note {
-    color: var(--secondary-color);
-    margin-top: 1rem;
-}
-
-.steam-note {
-    font-size: 0.9rem;
-    opacity: 0.7;
-    margin-top: 0.5rem;
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 1rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0px); }
-}
-
-.x-twitter {
-    background: rgba(255, 255, 255, 0.05) !important;
+    line-height: 1.6;
     position: relative;
-    overflow: hidden;
 }
 
-.x-twitter:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-}
-
-.x-logo {
-    width: 28px;
-    height: 28px;
-    margin-right: 1rem;
-}
-
-.x-logo svg {
-    width: 100%;
-    height: 100%;
-    color: var(--text-color);
-}
-
-.profile-image {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 1.5rem;
-}
-
-.profile-image::after {
-    display: none;
-}
-
-/* Desktop Optimization */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem;
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 2rem;
-    align-items: start;
-}
-
-.profile-section {
-    position: sticky;
-    top: 2rem;
-}
-
-.main-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.social-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.social-btn {
-    height: 80px;
-}
-
-/* Simplified Contact & Support */
-.contact-section h2,
-.donation-section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-}
-
-.contact-btn {
-    width: 100%;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    display: block;
-    text-align: center;
-}
-
-/* Mobile Optimization */
-@media (max-width: 1024px) {
-    .container {
-        grid-template-columns: 1fr;
-        padding: 1.5rem;
-    }
-
-    .profile-section {
-        position: relative;
-        top: 0;
-    }
-
-    .social-links {
-        grid-template-columns: 1fr;
-    }
-
-    .social-btn {
-        height: 70px;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 1rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    .profile-image img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .glass {
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .contact-btn,
-    .donation-btn {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-    }
-}
-
-/* Update the glass effect for better mobile performance */
-@supports (backdrop-filter: blur(20px)) {
-    .glass {
-        background: rgba(139, 92, 246, 0.05);
-        backdrop-filter: blur(20px);
-    }
-}
-
-@supports not (backdrop-filter: blur(20px)) {
-    .glass {
-        background: rgba(139, 92, 246, 0.15);
-    }
-}
-
-/* Optimize background effects for mobile */
-@media (max-width: 768px) {
-    /* Reset all blur and glass effects */
-    .glass-bg, .orb {
-        display: none;
-    }
-
-    .glass {
-        background: #000000cc;
-        border: 1px solid #ffffff26;
-        box-shadow: 0 4px 12px #00000033;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-    }
-
-    /* Remove all animations */
-    .profile-section,
-    .profile-image::after,
-    .glass::before {
-        animation: none;
-    }
-
-    /* Simplify layout */
-    .container {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-        gap: 1rem;
-    }
-
-    /* Make text crisp */
-    body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* Improve button clarity */
-    .social-btn,
-    .contact-btn,
-    .donation-btn {
-        background: #ffffff26;
-        border: 1px solid #ffffff4d;
-        box-shadow: none;
-    }
-
-    /* Remove hover effects on mobile */
-    .social-btn:hover,
-    .contact-btn:hover,
-    .donation-btn:hover {
-        transform: none;
-        box-shadow: none;
-    }
-
-    /* Ensure text is sharp */
-    h1, h2, p, span, small, a {
-        text-shadow: none;
-        transform: none !important;
-        -webkit-transform: none !important;
-    }
-
-    .profile-section {
-        position: relative;
-        top: 0;
-    }
-
-    .profile-section::after {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Further simplify for smaller screens */
-    .container {
-        padding: 0.8rem;
-    }
-
-    .glass {
-        padding: 1.2rem;
-        margin-bottom: 0.8rem;
-        border-radius: 16px;
-    }
-
-    /* Adjust text sizes */
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.4rem;
-    }
-
-    .text-content span {
-        font-size: 1rem;
-    }
-
-    .text-content small {
-        font-size: 0.85rem;
-    }
-
-    /* Simplify buttons */
-    .social-btn {
-        height: auto;
-        padding: 1rem;
-    }
-
-    .contact-btn,
-    .donation-btn {
-        padding: 0.8rem;
-    }
-
-    /* Remove all transforms and effects */
-    * {
-        transform: none !important;
-        -webkit-transform: none !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-    }
-}
-
-/* Add styles for new elements */
-.affiliations {
-    margin-top: 1.5rem;
-}
-
-.affiliations span {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-.affiliations a {
-    color: var(--secondary-color);
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.affiliations a:hover {
-    color: var(--primary-color);
-}
-
-.trade-info {
-    text-align: center;
-    background: #000000cc;
-}
-
-.trade-info ul {
-    list-style: none;
-    margin: 1.5rem 0;
-}
-
-.trade-info li {
-    margin: 1.2rem 0;
-    font-size: 1.3rem;
-    font-weight: 500;
-    padding: 0.8rem 0;
-    transition: transform 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.trade-info li:hover {
-    transform: translateX(5px);
-}
-
-.trade-info i {
-    color: var(--primary-color);
-    margin-right: 1.2rem;
-    font-size: 1.5rem;
-    text-shadow: 0 0 10px rgba(255, 46, 151, 0.5);
-}
-
-.trade-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1.2rem 2.8rem;
-    background: linear-gradient(45deg, #ffffff, #404040);
-    color: #000000;
-    text-decoration: none;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    letter-spacing: 1px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-.trade-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    background: linear-gradient(45deg, #ffffff, #606060);
-}
-
-.contact-note, .trade-note {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 1.2rem 0;
-}
-
-/* Update existing styles to match new theme */
-.location {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-    color: var(--secondary-color);
-}
-
-/* Add Twitch button styles */
-.social-btn.twitch {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-.social-btn.twitch:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.social-btn.twitch i {
-    color: white;
-}
-
-/* Adjust social links grid for 3 buttons */
-.social-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-/* Add VHS scanline effect */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1),
-        rgba(0, 0, 0, 0.1) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.3;
-}
-
-/* Add retro grid background */
 body::before {
     content: '';
     position: fixed;
@@ -717,433 +129,925 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.025) 0%, transparent 25%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.025) 0%, transparent 25%);
     pointer-events: none;
     z-index: -1;
 }
 
-/* Add CRT screen effect */
-.container::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        rgba(18, 16, 16, 0) 50%,
-        rgba(0, 0, 0, 0.1) 50%
-    );
-    background-size: 100% 4px;
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.15;
-}
-
-/* Add text glow effects */
-h1 {
-    text-shadow: var(--neon-glow);
-    animation: textPulse 2s infinite;
-}
-
-.profile-image::after {
-    box-shadow: var(--neon-glow);
-}
-
-/* Enhance social buttons */
-.social-btn {
-    border: 1px solid var(--primary-color);
-    box-shadow: inset 0 0 10px rgba(255, 46, 151, 0.2);
-    backdrop-filter: blur(5px);
-}
-
-.social-btn:hover {
-    box-shadow: 0 0 20px rgba(255, 46, 151, 0.4);
-    text-shadow: 0 0 5px var(--primary-color);
-}
-
-/* Add retro animations */
-@keyframes textPulse {
-    0% { text-shadow: var(--neon-glow); }
-    50% { text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color); }
-    100% { text-shadow: var(--neon-glow); }
-}
-
-@keyframes glitch {
-    0% { transform: translate(0) skew(0deg); }
-    20% { transform: translate(-2px, 2px) skew(2deg); }
-    40% { transform: translate(-2px, -2px) skew(-2deg); }
-    60% { transform: translate(2px, 2px) skew(-2deg); }
-    80% { transform: translate(2px, -2px) skew(2deg); }
-    100% { transform: translate(0) skew(0deg); }
-}
-
-/* Add glitch effect to profile image */
-.profile-image img {
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 1.5rem;
     position: relative;
 }
 
-.profile-image img::before,
-.profile-image img::after {
-    content: '';
+/* Glass Effect */
+.glass {
+    background: var(--container-bg);
+    border: 1px solid var(--container-border);
+    box-shadow: 0 0 20px var(--shadow-effect);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-radius: 16px;
+}
+
+.glass::before,
+.glass::after {
+    display: none;
+}
+
+.glass .ember-particles {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url(YOUR_IMAGE_URL) no-repeat center/cover;
-    opacity: 0.5;
-}
-
-.profile-image img::before {
-    animation: glitch 2s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    transform: translate(-5px);
-}
-
-.profile-image img::after {
-    animation: glitch 2s infinite reverse;
-    clip-path: polygon(0 45%, 100% 45%, 100% 100%, 0 100%);
-    transform: translate(5px);
-}
-
-/* Add scanlines */
-.scanlines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        #00000033,
-        #00000033 1px,
-        transparent 1px,
-        transparent 2px
-    );
     pointer-events: none;
-    z-index: 9999;
-    opacity: 0.08;
-    background-size: 100% 3px;
 }
 
-/* Update trade button */
-.trade-btn {
-    background: linear-gradient(45deg, #ffffff, #404040);
-    border: none;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+.glass .ember-particles::before,
+.glass .ember-particles::after {
+    content: '🔥';
+    position: absolute;
+    font-size: 10px;
+    opacity: 0;
+    animation: ember 4s infinite;
 }
 
-.trade-btn:hover {
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+.glass .ember-particles::before { left: 20%; animation-delay: 0s; }
+.glass .ember-particles::after { left: 80%; animation-delay: 2s; }
+
+@keyframes ember {
+    0% { 
+        opacity: 0;
+        transform: translateY(100%) rotate(0deg);
+    }
+    50% { 
+        opacity: 0.3;
+        transform: translateY(50%) rotate(180deg);
+    }
+    100% { 
+        opacity: 0;
+        transform: translateY(0%) rotate(360deg);
+    }
 }
 
-/* Add smooth scrolling */
-html {
-    scroll-behavior: smooth;
+.glass:hover::before {
+    left: 100%;
 }
 
-/* Update trade button icon */
-.trade-btn i {
-    color: white;
-    font-size: 1.2rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    transition: transform 0.3s ease;
-}
-
-.trade-btn:hover i {
-    transform: translateX(3px);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-}
-
-/* Add Discord button style */
-.social-btn.discord {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.social-btn.discord:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-}
-
-.social-btn.discord i {
-    color: var(--primary-color);
-}
-
-/* Update trade info styles */
-.trade-info h2 {
-    color: var(--primary-color);
-    font-size: 2.4rem;
-}
-
-.trade-info li i.fa-percentage {
-    font-size: 1.3rem;
-    margin-top: 2px;
-}
-
-/* Update profile section */
-.profile-section .bio {
-    font-size: 1.3rem;
-    margin: 1.2rem 0;
-}
-
-.affiliations span {
-    font-size: 1.1rem;
-    color: var(--secondary-color);
-    font-weight: 500;
-}
-
-/* Add floating bats animation */
-@keyframes flyBat {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(10px, -10px) rotate(5deg); }
-    50% { transform: translate(0, -20px) rotate(0deg); }
-    75% { transform: translate(-10px, -10px) rotate(-5deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-
-/* Add bat decorations */
-.bat {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 1l9 7h-6l3 4H6l3-4H3z"/></svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 0;
-    opacity: 0.1;
-    filter: brightness(1);
-    animation: flyBat 4s infinite ease-in-out;
-}
-
-.bat:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; }
-.bat:nth-child(2) { top: 15%; right: 10%; animation-delay: -1s; transform: scale(0.8); }
-.bat:nth-child(3) { top: 25%; left: 50%; animation-delay: -2s; transform: scale(1.2); }
-.bat:nth-child(4) { top: 40%; right: 25%; animation-delay: -3s; transform: scale(0.7); }
-
-/* Add dark mist effect */
-.mist {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        #ffffff0d,
-        transparent 70%);
-    pointer-events: none;
-    z-index: -1;
-    animation: mistFloat 20s infinite alternate;
-}
-
-@keyframes mistFloat {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-10px, -10px); }
-}
-
-/* Add Steam stats styling */
-.steam-stats {
+/* Profile Section */
+.profile-section {
     text-align: center;
-    margin-top: 1rem;
-    background: rgba(0, 0, 0, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    background: var(--container-bg);
+    border: 1px solid var(--container-border);
+    box-shadow: 0 0 20px var(--shadow-effect);
+    padding: 1.25rem;
 }
 
-.steam-stats h3 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    color: var(--primary-color);
-    text-shadow: var(--neon-glow);
+.profile-image {
+    margin: -1.25rem -1.25rem 1rem -1.25rem;
+    padding: 1.5rem;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.03),
+        transparent
+    );
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
 }
 
+.profile-image img {
+    width: 180px;
+    height: 180px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-lg);
+    transition: var(--transition);
+    filter: brightness(0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.profile-image:hover img {
+    transform: scale(1.02);
+    filter: brightness(1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Add blue fire effect to profile image */
+.profile-image::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 10px;
+    background: linear-gradient(
+        var(--dark-fire),
+        transparent
+    );
+    filter: blur(8px);
+    animation: flicker 3s infinite alternate;
+    opacity: 0.3;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* Stats Container */
 .stats-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    padding: 0.5rem;
+    margin: 0 -1.25rem;
+    padding: 1.5rem;
+    background: linear-gradient(
+        to bottom,
+        rgba(20, 20, 20, 0.95),
+        rgba(10, 10, 10, 0.98)
+    );
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* First three items take top row */
+.stat-item:nth-child(-n+3) {
+    grid-column: span 1;
+}
+
+/* Last two items centered in bottom row */
+.stat-item:nth-child(4) {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    justify-self: end;
+}
+
+.stat-item:nth-child(5) {
+    grid-column: 2 / 3;
+    grid-row: 2;
+    justify-self: start;
+}
+
+.stat-item:nth-child(n+4) {
+    transform: translateX(50%); /* Center the bottom items */
 }
 
 .stat-item {
-    padding: 0.8rem;
-    transition: transform 0.3s ease;
-}
-
-.stat-item:hover {
-    transform: translateY(-3px);
+    text-align: center;
+    padding: 0.75rem;
 }
 
 .stat-value {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    text-shadow: var(--neon-glow);
+    font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    color: var(--primary-color);
+    text-shadow: var(--text-glow);
 }
 
 .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--secondary-color);
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* Add fog effect */
-.fog {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        #ffffff0d,
-        transparent 70%);
-    pointer-events: none;
-    z-index: -1;
-    animation: fogFloat 20s infinite alternate;
+/* Remove the after pseudo-element since we're using grid layout */
+.stat-item::after {
+    display: none;
 }
 
-@keyframes fogFloat {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-10px, -10px); }
-}
-
-/* Update text styles */
-h1, h2, h3 {
-    color: var(--primary-color);
-    text-shadow: var(--neon-glow);
-}
-
-.bio, .trade-note, .contact-note {
-    color: var(--secondary-color);
-}
-
-/* Mobile optimization */
+/* Responsive adjustments for stats */
 @media (max-width: 768px) {
+    .stats-container {
+        margin: 0 -1rem;
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .stat-value {
+        font-size: 1.1rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+}
+
+/* Social Links */
+.social-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    background: var(--container-bg);
+    border: 1px solid var(--container-border);
+    border-radius: var(--border-radius-md);
+    height: 64px;
+    transition: var(--transition);
+    box-shadow: 0 0 15px rgba(32, 87, 255, 0.1);
+}
+
+.social-btn:hover {
+    background: var(--container-hover);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.social-btn i, .social-btn svg {
+    font-size: 1.35rem;
+    margin-right: var(--spacing-md);
+    width: 24px;
+    transition: var(--transition);
+}
+
+.social-btn:hover i, .social-btn:hover svg {
+    transform: scale(1.1);
+}
+
+/* Trade Button */
+.trade-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) calc(var(--spacing-lg) * 1.4);
+    background: linear-gradient(
+        45deg,
+        var(--gradient-start),
+        var(--gradient-end)
+    );
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--container-border);
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.trade-btn:hover {
+    background: var(--container-hover);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.trade-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 70%
+    );
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.trade-btn:hover::after {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+    margin-bottom: var(--spacing-md);
+    text-shadow: var(--text-glow);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+h1 { 
+    font-size: 2.5rem; 
+    background: linear-gradient(to right, 
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--text-glow);
+}
+
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+
+.bio {
+    color: var(--secondary-color);
+    margin: var(--spacing-md) 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
     .container {
         grid-template-columns: 1fr;
-        padding: 1rem;
-        gap: 1.5rem;
+        padding: var(--spacing-md);
     }
 
     .profile-section {
         position: relative;
         top: 0;
     }
+}
 
-    .bat {
-        display: none;
+@media (max-width: 480px) {
+    :root {
+        --spacing-lg: 1.5rem;
+        --spacing-md: 0.75rem;
+    }
+
+    .container {
+        padding: var(--spacing-sm);
+    }
+
+    .glass {
+        padding: var(--spacing-md);
+    }
+
+    h1 { font-size: 2rem; }
+    
+    .profile-image img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .social-btn {
+        height: 60px;
+        padding: var(--spacing-sm) var(--spacing-md);
     }
 }
 
-/* Update X (formerly Twitter) button styles */
-.social-btn.x {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+/* Add these styles to your existing CSS */
+
+.trade-info {
+    background: var(--container-bg);
+    border: 1px solid var(--container-border);
+    box-shadow: 0 0 20px var(--shadow-effect);
 }
 
-.social-btn.x:hover {
-    background: rgba(255, 255, 255, 0.1);
+.trade-info ul {
+    list-style: none;
+    width: 100%;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
 }
 
-.x-icon {
-    width: 20px;
-    height: 20px;
+.trade-info li {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(
+        90deg,
+        rgba(20, 20, 20, 0.95),
+        rgba(10, 10, 10, 0.98)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-md);
+    font-size: 1.1rem;
+    transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.trade-info li:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.trade-info li i {
     margin-right: 1rem;
-    fill: var(--primary-color);
-}
-
-/* Update contact and social button styles for consistency */
-.social-btn, .contact-btn, .donation-btn, .trade-btn {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.social-btn:hover, .contact-btn:hover, .donation-btn:hover, .trade-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-/* Remove any remaining colored glows */
-.trade-info i {
-    color: var(--primary-color);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-/* Update trade button to match monochrome theme */
-.trade-btn {
-    background: rgba(0, 0, 0, 0.8);
-    color: var(--primary-color);
-    text-shadow: none;
-}
-
-.trade-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--primary-color);
-}
-
-/* Ensure consistent text colors */
-.contact-note, .trade-note {
-    color: var(--secondary-color);
-}
-
-/* Remove any remaining colored shadows */
-.profile-section::after {
-    box-shadow: none;
-}
-
-.showcase-note {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: var(--secondary-color);
-    margin: 0.8rem 0;
-    text-align: left;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.showcase-note:last-child {
-    border-bottom: none;
-}
-
-.contact-section {
-    text-align: left;
-}
-
-.contact-section h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.contact-note {
-    text-align: center;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Add CS:GO rep button style */
-.social-btn.csgo-rep {
-    background: #000000cc;
-    border: 1px solid #ffffff26;
-}
-
-.social-btn.csgo-rep:hover {
-    background: #ffffff1a;
-}
-
-.csgo-rep-icon {
+    font-size: 1.2rem;
     width: 24px;
     height: 24px;
-    margin-right: 1rem;
-    fill: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 0.5rem;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .trade-info li {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .trade-info li i {
+        font-size: 1rem;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Add torch effect to corners */
+.container::before,
+.container::after {
+    display: none;
+}
+
+/* Add floating skull background */
+.background-skulls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Create multiple skull layers */
+.skull-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.skull-layer:nth-child(1)::before {
+    content: '💀';
+    font-size: 300px;
+    opacity: 0.04;
+    filter: blur(2px) grayscale(100%);
+}
+
+.skull-layer:nth-child(2)::before {
+    content: '☠️';
+    font-size: 250px;
+    opacity: 0.035;
+    filter: blur(1.5px) grayscale(100%);
+}
+
+.skull-layer:nth-child(3)::before {
+    content: '💀';
+    font-size: 350px;
+    opacity: 0.03;
+    filter: blur(2.5px) grayscale(100%);
+}
+
+/* Smoke effect */
+.smoke-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.smoke {
+    position: absolute;
+    width: 600px;
+    height: 150px;
+    background: radial-gradient(ellipse at center, 
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.03) 40%,
+        rgba(255, 255, 255, 0.01) 60%,
+        transparent 100%
+    );
+    border-radius: 100%;
+    filter: blur(30px);
+    mix-blend-mode: screen;
+}
+
+/* Position smoke clouds throughout the page */
+.smoke:nth-child(1) { top: 10%; animation: waftSmoke1 40s linear infinite; }
+.smoke:nth-child(2) { top: 30%; animation: waftSmoke2 35s linear infinite; }
+.smoke:nth-child(3) { top: 50%; animation: waftSmoke1 38s linear infinite; }
+.smoke:nth-child(4) { top: 70%; animation: waftSmoke2 42s linear infinite; }
+.smoke:nth-child(5) { top: 90%; animation: waftSmoke1 37s linear infinite; }
+.smoke:nth-child(6) { top: 20%; animation: waftSmoke2 39s linear infinite; }
+.smoke:nth-child(7) { top: 40%; animation: waftSmoke1 41s linear infinite; }
+.smoke:nth-child(8) { top: 60%; animation: waftSmoke2 36s linear infinite; }
+.smoke:nth-child(9) { top: 80%; animation: waftSmoke1 43s linear infinite; }
+.smoke:nth-child(10) { top: 25%; animation: waftSmoke2 38s linear infinite; }
+
+@keyframes waftSmoke1 {
+    0% {
+        transform: translateX(-100%) translateY(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(50vw) translateY(-50px);
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100vw) translateY(0);
+        opacity: 0;
+    }
+}
+
+@keyframes waftSmoke2 {
+    0% {
+        transform: translateX(100vw) translateY(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(50vw) translateY(50px);
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%) translateY(0);
+        opacity: 0;
+    }
+}
+
+/* Update social button text layout */
+.social-btn .text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.social-btn .text-content span {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.social-btn .text-content small {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* Add smoldering animation */
+@keyframes smolder {
+    0%, 100% { 
+        opacity: 0.2;
+        transform: scale(1) rotate(0deg);
+    }
+    50% { 
+        opacity: 0.3;
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+/* Add this to containers for extra effect */
+.glass:hover::after {
+    animation: smolder 3s infinite ease-in-out;
+}
+
+/* Add skull decoration to profile image */
+.profile-image::before {
+    display: none;
+}
+
+/* Update trade button skull */
+.trade-btn::before {
+    display: none;
+}
+
+/* More subtle floating animations */
+@keyframes subtleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(2deg); }
+}
+
+@keyframes subtleSkullFloat {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-3px); }
+}
+
+/* Add floating skull animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+/* Add creepy text glow effect to headings */
+h1, h2, h3, h4 {
+    animation: creepyGlow 4s infinite;
+}
+
+@keyframes creepyGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+    50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+}
+
+/* Add blood drip effect to containers */
+.glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 0, 0, 0.2) 50%,
+        transparent 100%
+    );
+    animation: bloodDrip 10s infinite;
+}
+
+@keyframes bloodDrip {
+    0% { transform: scaleX(0.95); opacity: 0.1; }
+    50% { transform: scaleX(1.05); opacity: 0.3; }
+    100% { transform: scaleX(0.95); opacity: 0.1; }
+}
+
+/* Add floating particles effect */
+.background-elements::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 10%, rgba(255, 0, 0, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(0, 0, 255, 0.02) 0%, transparent 50%);
+    animation: floatParticles 20s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes floatParticles {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-10px, -10px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* Add creepy hover effect to social buttons */
+.social-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.social-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 0, 0, 0.1),
+        rgba(0, 0, 255, 0.1),
+        transparent
+    );
+    transform: skewX(-15deg);
+    transition: 0.5s;
+}
+
+.social-btn:hover::after {
+    left: 100%;
+    transition: 0.7s;
+}
+
+/* Add pulsing effect to stats */
+.stat-value {
+    animation: statPulse 3s infinite;
+}
+
+@keyframes statPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Add scanlines effect */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0, 0, 0, 0.05) 51%,
+        transparent 51%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.2;
+}
+
+/* Add vignette effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Add flickering effect to profile image */
+.profile-image img {
+    animation: imageFlicker 8s infinite;
+}
+
+@keyframes imageFlicker {
+    0%, 100% { filter: brightness(0.95) contrast(1); }
+    92% { filter: brightness(0.95) contrast(1); }
+    93% { filter: brightness(1.2) contrast(0.9); }
+    94% { filter: brightness(0.95) contrast(1); }
+    96% { filter: brightness(1.1) contrast(0.9); }
+    97% { filter: brightness(0.95) contrast(1); }
+}
+
+/* Add creepy shadow effect to containers */
+.glass {
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(255, 0, 0, 0.1);
+    animation: shadowPulse 5s infinite;
+}
+
+@keyframes shadowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); }
+}
+
+/* Enhanced skull effects */
+.skull-layer:nth-child(1)::before { content: '💀'; font-size: 400px; top: 10%; left: 5%; }
+.skull-layer:nth-child(2)::before { content: '☠️'; font-size: 300px; top: 40%; right: 5%; }
+.skull-layer:nth-child(3)::before { content: '💀'; font-size: 350px; top: 70%; left: 15%; }
+.skull-layer::after {
+    content: '☠️';
+    position: absolute;
+    font-size: 250px;
+    opacity: 0.02;
+    filter: blur(2px) grayscale(100%);
+    animation: floatSkull 20s infinite linear;
+}
+
+/* Add more skull layers with different positions */
+.skull-layer:nth-child(1)::after { top: 30%; right: 10%; animation-delay: -5s; }
+.skull-layer:nth-child(2)::after { top: 60%; left: 20%; animation-delay: -10s; }
+.skull-layer:nth-child(3)::after { top: 20%; right: 25%; animation-delay: -15s; }
+
+@keyframes floatSkull {
+    0% { transform: translateY(0) rotate(0deg) scale(1); }
+    50% { transform: translateY(-30px) rotate(10deg) scale(1.1); }
+    100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+/* Remove previous flash effect */
+.lightning::after {
+    display: none;
+}
+
+/* Add starry background effect */
+.background-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-elements::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 10% 10%, var(--star-color) 1px, transparent 0),
+        radial-gradient(1px 1px at 20% 20%, var(--star-color) 1px, transparent 0),
+        radial-gradient(1px 1px at 30% 30%, var(--star-color) 1px, transparent 0),
+        radial-gradient(1px 1px at 40% 40%, var(--star-color) 1px, transparent 0),
+        radial-gradient(2px 2px at 50% 50%, var(--star-color) 1px, transparent 0);
+    background-size: 550px 550px;
+    animation: twinkle 5s infinite;
+}
+
+/* Update container padding and spacing */
+.container {
+    padding: 1.5rem;
+    gap: 1.5rem;
+}
+
+/* Update glass container styles */
+.glass {
+    background: var(--container-bg);
+    border: 1px solid var(--container-border);
+    box-shadow: 0 0 20px var(--shadow-effect);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-radius: 16px;
+}
+
+/* Update social buttons padding */
+.social-btn {
+    padding: 1rem;
+    gap: 0.75rem;
+    height: 64px;
+}
+
+/* Update trade info padding */
+.trade-info ul {
+    padding: 0.5rem;
+}
+
+.trade-info li {
+    padding: 0.75rem 1rem;
+}
+
+/* Add twinkling star animation */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* Add floating bat animation */
+@keyframes floatBat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+/* Update profile section padding */
+.profile-section {
+    padding: 1.25rem;
+}
+
+.profile-image {
+    margin: -1.25rem -1.25rem 1rem -1.25rem;
+    padding: 1.5rem;
+}
+
+/* Update stats container padding */
+.stats-container {
+    margin: 0 -1.25rem;
+    padding: 1.5rem 1rem;
+}
+
+/* Mobile responsiveness updates */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .glass {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .profile-image {
+        margin: -1rem -1rem 0.75rem -1rem;
+        padding: 1rem;
+    }
+
+    .stats-container {
+        margin: 0 -1rem;
+        padding: 1rem;
+    }
 }
  
